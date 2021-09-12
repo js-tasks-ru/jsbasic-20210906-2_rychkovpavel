@@ -2,7 +2,7 @@ function sumSalary(salaries) {
   let sum = 0;
 
   for (let key in salaries) {
-    if (isFinite(salaries[key]) && typeof salaries[key] !== "boolean") {
+    if (isFinite(salaries[key]) && typeof salaries[key] === 'number') {
       sum += salaries[key];
     }
   }
