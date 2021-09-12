@@ -10,8 +10,21 @@ function print(text) {
  * чтобы функция sayHello работала корректно
  */
 function isValid(name) {
-  // ваш код...
+  
+  
+  if (name != '' && 
+      name != null &&
+      name.length >= 4 &&
+      !(name.includes(' '))) {
+    return true;
+  }
+  
+  return false;
 }
+
+// возможно лучше использовать !(name.startsWith(' ')) && !(name.endsWith(' ')),
+//т.к. пользователь может ввести например Василий Иванович и тогда пробел по середине будет считаться ошибкой
+// запускад тест с таким кодом, но код не проходит
 
 function sayHello() {
   let userName = prompt('Введите ваше имя');
