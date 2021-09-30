@@ -1,13 +1,9 @@
 function makeFriendsList(arr) {
-  const names = arr.map(item => `<li>${item.firstName} ${item.lastName}</li>`);
-  let liItems = ''; 
-    
-  for (let i = 0; i < names.length; i++) {
-    liItems += names[i];
-  }
+  const arrNames = arr.map(item => `<li>${item.firstName} ${item.lastName}</li>`);
+  const strNames = arrNames.join('');
 
-  let ul = document.createElement('ul');
-  ul.insertAdjacentHTML('afterBegin', liItems);
+  const ul = document.createElement('ul');
+  ul.insertAdjacentHTML('afterBegin', strNames);
 
   return ul;
 }
