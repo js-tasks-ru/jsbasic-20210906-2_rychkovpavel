@@ -29,6 +29,9 @@ function initCarousel() {
     } 
   });
 
+  // после нажатия на элемент стрелка вправо в консоле так же остается 0, хотя в обработчике переменная увеличивается на единицу
+  console.log(counterSlides);
+  
   arrowLeft.addEventListener('click', () => {
     width = width - widthSlide;
     

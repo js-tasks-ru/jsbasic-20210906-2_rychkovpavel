@@ -17,7 +17,7 @@ function highlight(table) {
         rows[i].classList.toggle('female');
       }
 
-      if (rows[i].cells[j].innerHTML < '18') {
+      if (rows[i].cells[j].textContent < 18) {
         rows[i].style.textDecoration = 'line-through';
       }
     }
