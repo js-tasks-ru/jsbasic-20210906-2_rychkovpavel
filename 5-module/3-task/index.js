@@ -7,9 +7,9 @@ function initCarousel() {
   let width = 0;
   let counterSlides = 0;
 
-  slides[0].classList.toggle('activ');
+  slides[0].classList.toggle('active');
 
-  if (slides[0].classList.contains('activ')) {
+  if (slides[0].classList.contains('active')) {
     arrowLeft.style.display = 'none';
   }
 
@@ -28,9 +28,6 @@ function initCarousel() {
       arrowRight.style.display = 'none';
     } 
   });
-
-  // после нажатия на элемент стрелка вправо в консоле так же остается 0, хотя в обработчике переменная увеличивается на единицу
-  console.log(counterSlides);
   
   arrowLeft.addEventListener('click', () => {
     width = width - widthSlide;
