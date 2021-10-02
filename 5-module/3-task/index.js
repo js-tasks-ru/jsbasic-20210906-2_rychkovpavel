@@ -7,11 +7,7 @@ function initCarousel() {
   let width = 0;
   let counterSlides = 0;
 
-  slides[0].classList.toggle('active');
-
-  if (slides[0].classList.contains('active')) {
-    arrowLeft.style.display = 'none';
-  }
+  arrowLeft.style.display = 'none';
 
   arrowRight.addEventListener('click', () => {
     width = width + widthSlide;
