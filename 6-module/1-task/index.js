@@ -13,21 +13,15 @@
  *
  */
 export default class UserTable {
-  #rows = null;
-  #rowsTemplate = '';
-  #template = '';
-
   constructor(rows) {
-    this.#rows = rows;
-    this.elem = document.createElement('table');
-    this.#rowsTemplate = this.#makeRows(this.#rows);
-    this.#template = this.#makeTemplate();
-    this.render = this.render();
-    this.#onClick = this.#onClick();
+    this._container = document.createElement('table');
+    this.makeRows = rows;
+    this.makeTemplate = this._rowsTemplate;
+    this._container.insertAdjacentHTML('afterBegin', this._template);
   }
 
-  #makeRows() {
-    return this.#rows.map(item => {
+  set makeRows(rows) {
+    this._rowsTemplate = rows.map(item => {
       return `
         <tr>
           <td>${item.name}</td>
@@ -40,36 +34,42 @@ export default class UserTable {
     }).join('');
   }
 
-  #makeTemplate() {
-    return `
-    <thead>
-      <tr>
-        <th>Имя</th>
-        <th>Возраст</th>
-        <th>Зарплата</th>
-        <th>Город</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      ${this.#rowsTemplate}
-    </tbody>
-  `;
+  set makeTemplate(_rowsTemplate) {
+    this._template = `
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Возраст</th>
+          <th>Зарплата</th>
+          <th>Город</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        ${this._rowsTemplate}
+      </tbody>
+    `;
   }
 
-  render() {
-    this.elem.insertAdjacentHTML('afterBegin', this.#template);
+  get elem() {
+    this.buttons.forEach(item => {
+      item.addEventListener('click', this.#onClick);
+    });
+
+    return this._container;
   }
 
   get buttons() {
-    return this.elem.querySelectorAll('BUTTON');
+    return this._container.querySelectorAll('button');
   }
 
-  #onClick = () => {  
+  #onClick = (event) => {
+    event.target.closest('tr').remove();
+  }
+
+  destroy() {
     this.buttons.forEach(item => {
-      item.addEventListener('click', () => {
-        item.parentElement.parentElement.remove();
-      });
+      item.removeEventListener('click', this.#onClick);
     });
   }
 }

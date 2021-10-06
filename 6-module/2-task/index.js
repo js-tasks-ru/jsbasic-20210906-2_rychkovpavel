@@ -8,7 +8,6 @@ export default class ProductCard {
     this.#product = product;
     this.#template = this.makeTemplate(this.#product);
     this._container = createElement(this.#template);
-    this.button.addEventListener('click', this.onClick);
   }
 
   makeTemplate() {
@@ -29,6 +28,8 @@ export default class ProductCard {
   }
 
   get elem() {
+    this.button.addEventListener('click', this.onClick);
+
     return this._container;
   }
 
