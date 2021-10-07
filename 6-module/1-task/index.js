@@ -18,6 +18,9 @@ export default class UserTable {
     this.makeRows = rows;
     this.makeTemplate = this._rowsTemplate;
     this._container.insertAdjacentHTML('afterBegin', this._template);
+    this.buttons.forEach(item => {
+      item.addEventListener('click', this.#onClick);
+    });
   }
 
   set makeRows(rows) {
@@ -52,10 +55,6 @@ export default class UserTable {
   }
 
   get elem() {
-    this.buttons.forEach(item => {
-      item.addEventListener('click', this.#onClick);
-    });
-
     return this._container;
   }
 

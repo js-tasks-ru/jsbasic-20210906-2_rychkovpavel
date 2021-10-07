@@ -16,6 +16,10 @@ export default class Carousel {
     this.slides = this._container.querySelectorAll('.carousel__slide');   
     this.width = 0;
     this.counterSlides = 0;
+
+    this.arrowRight.addEventListener('click', this.onClickRight);
+    this.arrowLeft.addEventListener('click', this.onClickLeft);
+    this.carouselButton.forEach(item => item.addEventListener('click', this.onClickProductAdd));
   }
 
   set makeSlideTemplate(slides) {
@@ -51,11 +55,7 @@ export default class Carousel {
     `;
   }
 
-  get elem() {
-    this.arrowRight.addEventListener('click', this.onClickRight);
-    this.arrowLeft.addEventListener('click', this.onClickLeft);
-    this.carouselButton.forEach(item => item.addEventListener('click', this.onClickProductAdd));
-    
+  get elem() {    
     return this._container;
   }
 
