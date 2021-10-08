@@ -60,10 +60,10 @@ export default class Carousel {
   }
 
   onClickRight = () => {    
-    let widthSlide = this.slides[0].offsetWidth;
+    const widthSlide = this.slides[0].offsetWidth;
     
     if (this.counterSlides < this.slides.length - 1) {
-      this.width = this.width + widthSlide;
+      this.width += widthSlide;
       this.slidesContainer.style.transform = `translateX(-${this.width + 'px'})`;
       this.counterSlides++;
       this.arrowLeft.style.display = '';
@@ -76,10 +76,10 @@ export default class Carousel {
   }
 
   onClickLeft = () => {
-    let widthSlide = this.slides[0].offsetWidth;
+    const widthSlide = this.slides[0].offsetWidth;
     
     if (this.counterSlides !== 0 && this.counterSlides < this.slides.length) {
-      this.width = this.width - widthSlide;
+      this.width -= widthSlide;
       this.slidesContainer.style.transform = `translateX(-${this.width + 'px'})`;
       this.counterSlides--;
       this.arrowRight.style.display = '';

@@ -15,12 +15,12 @@
 export default class UserTable {
   constructor(rows) {
     this._container = document.createElement('table');
+    this._rowsTemplate = '';
     this.makeRows = rows;
+    this._template = '';
     this.makeTemplate = this._rowsTemplate;
     this._container.insertAdjacentHTML('afterBegin', this._template);
-    this.buttons.forEach(item => {
-      item.addEventListener('click', this.#onClick);
-    });
+    this.buttons.forEach(item => item.addEventListener('click', this.#onClick, {once: true}));
   }
 
   set makeRows(rows) {
@@ -66,9 +66,13 @@ export default class UserTable {
     event.target.closest('tr').remove();
   }
 
-  destroy() {
+  /* destroy() {
     this.buttons.forEach(item => {
-      item.removeEventListener('click', this.#onClick);
-    });
-  }
+      item.removeEventListener('click', this.#onClick); // это метод отмены подписки на событие, метод обычно
+    });                                                 // вызывается после удаления элемента со страницы на
+  }                                                     // который была подписка на событие, либо при переходе
+                                                        // на другую страницу сайта (приложения)
+                                                        // в этом примере он нужен, но здесь реалтзован как
+                                                        // {once: true}                                      
+  */
 }

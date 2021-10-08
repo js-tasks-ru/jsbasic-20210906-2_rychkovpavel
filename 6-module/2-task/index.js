@@ -45,7 +45,8 @@ export default class ProductCard {
     this._container.dispatchEvent(productAdd);
   }
 
-  destroy() {
-    this.button.removeEventListener('click', this.onClick);
-  }
+  /* destroy() {
+    this.button.removeEventListener('click', this.onClick); // здесь он не нужен, т.к. может 
+  }                                                         // клиент несколько раз кликнуть и добавить блюдо
+  */
 }
