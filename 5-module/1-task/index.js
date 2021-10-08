@@ -3,5 +3,5 @@ function hideSelf() {
 
   button.addEventListener('click', () => {
     button.hidden = true;
-  });
+  }, {once: true});
 }
