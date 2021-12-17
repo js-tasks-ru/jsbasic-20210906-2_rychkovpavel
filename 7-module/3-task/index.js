@@ -79,50 +79,91 @@ export default class StepSlider {
       bubbles: true
     });
 
-    this._container.dispatchEvent(sliderChange);
+    this._container.dispatchEvent(sliderChange);  
+  }
+}
 
-    /* let sliderElement = document.querySelector('.slider');
-    let coordinatesSliderElement = sliderElement.getBoundingClientRect();
-    let widthStep = (coordinatesSliderElement.width / (this.steps - 1)) / 2;
-    let start = coordinatesSliderElement.x;
-    let coordinatesXClick = event.clientX;
-    let spanValue = document.querySelector('.slider__value');
-    let sliderSteps = document.querySelector('.slider__steps').children;
-        
-    if (coordinatesXClick >= start && coordinatesXClick <= start + widthStep * 1) {
-      this.value = 0;
-      this.leftPercents = 0;
-    } else if (coordinatesXClick >= start + widthStep && coordinatesXClick <= start + widthStep * 3) {
-      this.value = 1;
-      this.leftPercents = 25;
-    } else if (coordinatesXClick >= start + widthStep * 3 && coordinatesXClick <= start + widthStep * 5) {
-      this.value = 2;
-      this.leftPercents = 50;
-    } else if (coordinatesXClick >= start + widthStep * 5 && coordinatesXClick <= start + widthStep * 7) {
-      this.value = 3;
-      this.leftPercents = 75;
-    } else if (coordinatesXClick >= start + widthStep * 7 && coordinatesXClick <= start + widthStep * 8) {
-      this.value = 4;
-      this.leftPercents = 100;
+/* export default class StepSlider {
+  constructor({ steps, value = 0 }) {
+    this.steps = steps;
+    this.value = value;
+    this._container = document.createElement('div');
+    this.spans = '';
+    this.makeSpan(this.steps);
+    this.sliderElement = this.makeSlider(this.spans);
+    this.makeTemplate(this.sliderElement, this._container);
+    this.setBasicSettings();
+    this._container.addEventListener('click', this.onClick);
+  }
+
+  makeSpan(steps, spans) {
+    for (let i = 0; i <= this.steps - 1; i++) {
+      this.spans += `<span></span>`;
     }
+  }
 
-    spanValue.textContent = this.value;
+  makeSlider(spans) {
+    return `
+    <div class="slider__thumb">
+      <span class="slider__value">${this.value}</span>
+    </div>
+    <div class="slider__progress"></div>
+    <div class="slider__steps">
+      ${this.spans}
+    </div>
+    `;
+  }
+
+  makeTemplate(sliderElement, container) {
+    this._container.classList.add('slider');
+    this._container.insertAdjacentHTML('afterbegin', this.sliderElement);
+  }
+
+  setBasicSettings() {
+    let thumb = this._container.querySelector('.slider__thumb');
+    let progress = this.elem.querySelector('.slider__progress');
+    let spansElem = this._container.querySelectorAll('.slider__steps > span');
     
-    for (let i = 0; i < sliderSteps.length; i++) {
+    spansElem[0].classList.add('slider__step-active');
+    thumb.style.left = `${0}%`;
+    progress.style.width = `${0}%`;
+  }
+
+  get elem() {
+    return this._container;
+  }
+
+  onClick = (event) => {
+    let thumb = this._container.querySelector('.slider__thumb');
+    let progress = this._container.querySelector('.slider__progress');
+    let left = event.clientX - this._container.getBoundingClientRect().left;
+    let leftRelative = left / this._container.offsetWidth;
+    let segments = this.steps - 1;
+    let approximateValue = leftRelative * segments;
+    let value = Math.round(approximateValue);
+    let valuePercents = value / segments * 100;
+    let spanValue = document.querySelector('.slider__value');
+    let sliderSteps = document.querySelectorAll('.slider__steps > span');
+
+    this.value = value;
+    spanValue.textContent = this.value;
+
+    for (let i = 0; i <= segments; i++) {
       sliderSteps[i].classList.remove('slider__step-active');
-      if (i === this.value) {
-        sliderSteps[i].classList.add('slider__step-active');
-      }
     }
 
-    this.thumb.style.left = `${this.leftPercents}%`;
-    this.progress.style.width = `${this.leftPercents}%`;
+    sliderSteps[this.value].classList.add('slider__step-active');
+
+    let leftPercents = valuePercents;
+
+    thumb.style.left = `${leftPercents}%`;
+    progress.style.width = `${leftPercents}%`;
 
     const sliderChange = new CustomEvent('slider-change', {
       detail: this.value,
       bubbles: true
     });
 
-    this._container.dispatchEvent(sliderChange); */  
+    this._container.dispatchEvent(sliderChange);  
   }
-}
+} */
