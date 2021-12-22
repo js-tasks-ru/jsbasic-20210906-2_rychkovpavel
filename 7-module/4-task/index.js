@@ -1,4 +1,4 @@
-// Влад подскажи пожалуйста сделал задание 7.4 в двух разных вариациях, первый вариант сделал как можно меньше
+/* // Влад подскажи пожалуйста сделал задание 7.4 в двух разных вариациях, первый вариант сделал как можно меньше
 // повторяющегося кода.
 // второй есть повторяющиеся строчки кода и почти все переменные локальные для своих методов
 // Какой вариант на твой взгляд более читабельный и проверь сразу все ли правельно )))
@@ -155,10 +155,10 @@ export default class StepSlider {
     this.thumb.style.left = `${this.leftPercents}%`;
     this.progress.style.width = `${this.leftPercents}%`;
   }
-}
+} */
 
 // Второй вариант
-/* export default class StepSlider {
+export default class StepSlider {
   constructor({ steps, value = 0 }) {
     this.steps = steps;
     this.value = value;
@@ -317,4 +317,4 @@ export default class StepSlider {
   onDragStart = (event) => {
     e.preventDefault();
   };
-} */
+}
