@@ -55,7 +55,6 @@ import createElement from '../../assets/lib/create-element.js';
 
 export default class ProductCard {
   
-  
   constructor(product) {
     this.product = product;
     this.template = this.makeTemplate(this.product);
@@ -78,6 +77,9 @@ export default class ProductCard {
         </div>
       </div>
     `;
+
+    //elem.category = this.product.category;
+    //elem.id = this.product.id;
   }
 
   get elem() {

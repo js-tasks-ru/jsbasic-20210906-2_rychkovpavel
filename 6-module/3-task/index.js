@@ -99,7 +99,6 @@ export default class Carousel {
     const id = target.dataset.id;
     const slide = {id: id};
 
-
     const productAdd = new CustomEvent('product-add', {
       detail: slide.id,
       bubbles: true

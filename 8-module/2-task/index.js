@@ -7,15 +7,6 @@ export default class ProductGrid {
     this.filters = {};
     this.template = this.makeTemplate(this.products);
     this._container = createElement(this.template);
-    
-    /* this._container = createElement(`
-      <div class="products-grid">
-        <div class="products-grid__inner">
-          ${this.template}
-        </div>
-      </div>
-    ` 
-    ); */
   }
 
   makeTemplate(products) {
@@ -30,95 +21,36 @@ export default class ProductGrid {
         </div>
       </div>
     `;
-
-    //return template.map(item => item.template).join('');
   }
 
   get elem() {
     return this._container;
   }
 
-  updateFilter(filters) {   
-    this._container.innerHTML = "";
+  updateFilter(filters) {
+    let productsGridInner = document.querySelector('.products-grid__inner');
+    productsGridInner.innerHTML = "";
 
-    this.filters = Object.assign(this.filters, filters);
-    let checkProducts = [];
+    Object.assign(this.filters, filters);
 
-    if (this.filters.noNuts) {
-      let noNuts = this.products.filter(item => item.nuts === false || item.nuts === undefined); // или лучше item.nuts == null
-      noNuts.forEach(item => checkProducts.push(item));
-    }
+    let {noNuts, vegeterianOnly, maxSpiciness, category} = this.filters;
 
-    if (this.filters.vegeterianOnly) {
-      let vegeterian = this.products.filter(item => item.vegeterian === true);
-      vegeterian.forEach(item => checkProducts.push(item));
-    }
-    
-    if (this.filters.maxSpiciness) {
-      let spiciness = null;
-      switch(this.filters.maxSpiciness) {
-      case 0:
-        spiciness = this.products.filter(item => item.spiciness === 0);
-        spiciness.forEach(item => checkProducts.push(item));
-        break;
-      case 1:
-        spiciness = this.products.filter(item => item.spiciness === 1);
-        spiciness.forEach(item => checkProducts.push(item));
-        break;
-      case 2:
-        spiciness = this.products.filter(item => item.spiciness === 2);
-        spiciness.forEach(item => checkProducts.push(item));
-        break;
-      case 3:
-        spiciness = this.products.filter(item => item.spiciness === 3);
-        spiciness.forEach(item => checkProducts.push(item));
-        break;
-      case 4:
-        spiciness = this.products.filter(item => item.spiciness === 4);
-        spiciness.forEach(item => checkProducts.push(item));
-        break;
+    for (let product of this.products) {
+      if (noNuts && product.nuts) {
+        continue;
       }
-    }
-
-    if (this.filters.category) {
-      let category = null;
-      switch(this.filters.category) {
-      case "salads":
-        category = this.products.filter(item => item.category === "salads");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "soups":
-        category = this.products.filter(item => item.category === "soups");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "chicken-dishes":
-        category = this.products.filter(item => item.category === "chicken-dishes");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "beef-dishes":
-        category = this.products.filter(item => item.category === "beef-dishes");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "seafood-dishes":
-        category = this.products.filter(item => item.category === "seafood-dishes");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "vegetable-dishes":
-        category = this.products.filter(item => item.category === "vegetable-dishes");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "bits-and-bites":
-        category = this.products.filter(item => item.category === "bits-and-bites");
-        category.forEach(item => checkProducts.push(item));
-        break;
-      case "on-the-side":
-        category = this.products.filter(item => item.category === "on-the-side");
-        category.forEach(item => checkProducts.push(item));
-        break;
+      if (vegeterianOnly && !product.vegeterian) {
+        continue;
       }
-    }
+      if (maxSpiciness !== undefined && product.spiciness > maxSpiciness) {
+        continue;
+      }
+      if (category && product.category != category) {
+        continue;
+      }
 
-    this._container.insertAdjacentHTML('afterBegin', this.makeTemplate(checkProducts));
-    
+      let card = new ProductCard(product);
+      productsGridInner.append(card.elem);
+    }   
   }
 }
