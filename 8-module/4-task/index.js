@@ -175,7 +175,7 @@ export default class Cart {
     this.cartIcon.update(this);
   }
 
-  async onSubmit(event) {
+  onSubmit = async (event) => {
     event.preventDefault();
     
     const buttonSubmit = document.querySelector(`.modal__body [type="submit"]`);
@@ -199,12 +199,12 @@ export default class Cart {
                 <img src="/assets/images/delivery.gif">
               </p>
             </div>
-          `);
+        `);
           
         const modalTitle = document.querySelector('.modal__title');
         modalTitle.textContent = 'Success!';
 
-        this.cartItems = [];
+        this.cartItems.splice(0);
     
         const modalBody = document.querySelector('.modal__body');
         modalBody.innerHTML = '';
