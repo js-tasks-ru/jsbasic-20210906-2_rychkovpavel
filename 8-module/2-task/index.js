@@ -31,7 +31,7 @@ export default class ProductGrid {
     let productsGridInner = document.querySelector('.products-grid__inner');
     productsGridInner.innerHTML = "";
 
-    Object.assign(this.filters, filters);
+    this.filters = Object.assign(this.filters, filters);
 
     let {noNuts, vegeterianOnly, maxSpiciness, category} = this.filters;
 

@@ -12,30 +12,34 @@ export default class Cart {
 
     if (product !== null && product !== undefined) {
       let productExists = this.cartItems.find(item => item.product.id === product.id);
+      let cartItem = null;
 
       if (!productExists) {
-        this.cartItems.push({'product': product, 'count': 1});
+        cartItem = {'product': product, 'count': 1};
+        this.cartItems.push(cartItem);
       } else {
         productExists.count++;
+        cartItem = productExists;
       }
 
-      this.onProductUpdate(this.cartItem);
+      this.onProductUpdate(cartItem);
     }    
   }
 
   updateProductCount(productId, amount) {
-    let id = this.cartItems.map(item => item.product.id).join('');
+    let cartItem = null;
 
     for (let item of this.cartItems) {
-      if (productId === id) {
+      if (item.product.id === productId) {
         item.count += amount;
         if (item.count < 1) {
           this.cartItems.pop(item);
         }
+        cartItem = item;
       }
     }
 
-    this.onProductUpdate(this.cartItem);    
+    this.onProductUpdate(cartItem);    
   }
 
   isEmpty() {
