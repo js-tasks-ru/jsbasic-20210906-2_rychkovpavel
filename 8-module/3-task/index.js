@@ -6,10 +6,6 @@ export default class Cart {
   }
 
   addProduct(product) {
-    /* if (this.cartItems.length === 0) {
-      this.cartItems.push({'product': product, 'count': 1});
-    } */
-
     if (product !== null && product !== undefined) {
       let productExists = this.cartItems.find(item => item.product.id === product.id);
       let cartItem = null;
@@ -29,15 +25,15 @@ export default class Cart {
   updateProductCount(productId, amount) {
     let cartItem = null;
 
-    for (let item of this.cartItems) {
+    this.cartItems.forEach((item, index) => {
       if (item.product.id === productId) {
         item.count += amount;
         if (item.count < 1) {
-          this.cartItems.pop(item);
+          this.cartItems.splice(index, 1);
         }
         cartItem = item;
       }
-    }
+    });
 
     this.onProductUpdate(cartItem);    
   }
