@@ -69,4 +69,3 @@ export default class Cart {
     this.cartIcon.update(this);
   }
 }
-
