@@ -159,7 +159,7 @@ export default class StepSlider {
 
 // Второй вариант
 export default class StepSlider {
-  constructor({ steps, value = 0 }) {
+  constructor({ steps, value = 0}) {
     this.steps = steps;
     this.value = value;
     this._container = document.createElement('div');
@@ -199,13 +199,16 @@ export default class StepSlider {
   }
 
   setBasicSettings() {
+    let spansElem = this._container.querySelectorAll('.slider__steps > span');
+    spansElem[this.value].classList.add('slider__step-active');
+    
+    let segments = this.steps - 1;
+    let valuePercents = this.value / segments * 100;
     let thumb = this._container.querySelector('.slider__thumb');
     let progress = this.elem.querySelector('.slider__progress');
-    let spansElem = this._container.querySelectorAll('.slider__steps > span');
-    
-    spansElem[0].classList.add('slider__step-active');
-    thumb.style.left = `${0}%`;
-    progress.style.width = `${0}%`;
+
+    thumb.style.left = `${valuePercents}%`;
+    progress.style.width = `${valuePercents}%`;
   }
 
   get elem() {

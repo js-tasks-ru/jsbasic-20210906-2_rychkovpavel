@@ -1,5 +1,5 @@
 export default class StepSlider {
-  constructor({ steps, value = 0 }) {
+  constructor({ steps, value = 0}) {
     this.steps = steps;
     this.value = value;
     this._container = document.createElement('div');
@@ -10,8 +10,7 @@ export default class StepSlider {
     this.thumb = this._container.querySelector('.slider__thumb');
     this.progress = this._container.querySelector('.slider__progress');
     this.leftPercents = 0;
-    this.basicSettings(this._container, this.progress);
-
+    this.setBasicSettings();
     this._container.addEventListener('click', this.onClick);
   }
 
@@ -38,16 +37,21 @@ export default class StepSlider {
     this._container.insertAdjacentHTML('afterbegin', this.sliderElement);
   }
 
-  basicSettings(container, progress) {
-    let spansElem = this._container.querySelectorAll('.slider__steps > span');
-    spansElem[0].classList.add('slider__step-active');
-
-    this.thumb.style.left = `${this.leftPercents}%`;
-    this.progress.style.width = `${this.leftPercents}%`;
-  }
-
   get elem() {
     return this._container;
+  }
+
+  setBasicSettings() {
+    let spansElem = this._container.querySelectorAll('.slider__steps > span');
+    spansElem[this.value].classList.add('slider__step-active');
+    
+    let segments = this.steps - 1;
+    let valuePercents = this.value / segments * 100;
+    let thumb = this._container.querySelector('.slider__thumb');
+    let progress = this.elem.querySelector('.slider__progress');
+
+    thumb.style.left = `${valuePercents}%`;
+    progress.style.width = `${valuePercents}%`;
   }
 
   onClick = (event) => {   
