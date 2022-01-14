@@ -5,45 +5,52 @@ export default class ProductGrid {
   constructor(products) {
     this.products = products;
     this.filters = {};
-    this.render();
+    this.template = this.makeTemplate(this.products);
+    this._container = createElement(this.template);
   }
 
-  render() {
-    this.elem = createElement(`<div class="products-grid">
-      <div class="products-grid__inner"></div>
-    </div>`);
+  makeTemplate(products) {
+    let template = products.map(item => {
+      return new ProductCard(item);
+    });
 
-    this.renderContent();
+    return `
+      <div class="products-grid">
+        <div class="products-grid__inner">
+          ${template.map(item => item.template).join('')}
+        </div>
+      </div>
+    `;
   }
 
-  renderContent() {
-    this.sub('inner').innerHTML = '';
+  get elem() {
+    return this._container;
+  }
+
+  updateFilter(filters) {
+    let productsGridInner = this._container.querySelector('.products-grid__inner');
+    productsGridInner.innerHTML = "";
+
+    this.filters = Object.assign(this.filters, filters);
+
+    let {noNuts, vegeterianOnly, maxSpiciness, category} = this.filters;
 
     for (let product of this.products) {
-      if (this.filters.noNuts && product.nuts) {continue;}
-
-      if (this.filters.vegeterianOnly && !product.vegeterian) {continue;}
-
-      if (this.filters.maxSpiciness !== undefined && product.spiciness > this.filters.maxSpiciness) {
+      if (noNuts && product.nuts) {
         continue;
       }
-
-      if (this.filters.category && product.category != this.filters.category) {
+      if (vegeterianOnly && !product.vegeterian) {
+        continue;
+      }
+      if (maxSpiciness !== undefined && product.spiciness > maxSpiciness) {
+        continue;
+      }
+      if (category && product.category != category) {
         continue;
       }
 
       let card = new ProductCard(product);
-      this.sub("inner").append(card.elem);
-    }
+      productsGridInner.append(card.elem);
+    }   
   }
-
-  updateFilter(filters) {
-    Object.assign(this.filters, filters);
-    this.renderContent();
-  }
-
-  sub(ref) {
-    return this.elem.querySelector(`.products-grid__${ref}`);
-  }
-
 }

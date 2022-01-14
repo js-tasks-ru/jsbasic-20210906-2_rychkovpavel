@@ -39,6 +39,41 @@ export default class CartIcon {
   }
 
   updatePosition() {
-    // ваш код ...
+      
+    if (this.elem.offsetWidth) { // проверка на пустоту
+      let coordsCartIcon = this.elem.getBoundingClientRect();
+      let widthCartIcon = this.elem.offsetWidth;
+      let container = document.querySelector('.header').getBoundingClientRect();
+      let windowClientWidth = document.documentElement.clientWidth;
+      let space = windowClientWidth - container.right - (20 + widthCartIcon + 10);
+
+      if (windowClientWidth > 767 && window.pageYOffset > coordsCartIcon.top && space > 0) {
+        Object.assign(this.elem.style, {
+          position: 'fixed',
+          top: '50px',
+          zIndex: 1e3,
+          left: `${container.right + 20}px`
+        });
+        //this.elem.style.cssText = "position: fixed; top: 50px; z-index: 1000000";
+        //this.elem.style.left = `${container.right + 20}px`;
+      } else if (windowClientWidth > 767 && window.pageYOffset > coordsCartIcon.top && space <= 0) {
+        Object.assign(this.elem.style, {
+          position: 'fixed',
+          top: '50px',
+          zIndex: 1e3,
+          left: `${windowClientWidth - widthCartIcon - 10}px`
+        });
+        //this.elem.style.cssText = "position: fixed; top: 50px; z-index: 1000000";
+        //this.elem.style.left = `${windowClientWidth - widthCartIcon - 10}px`;
+      } else if (window.pageYOffset < coordsCartIcon.top) {
+        Object.assign(this.elem.style, {
+          position: '',
+          top: '',
+          zIndex: '',
+          left: '' 
+        });
+        //this.elem.style.cssText = "position: absolute; right: 0; top: 50px;";
+      }  
+    }
   }
 }

@@ -24,9 +24,7 @@ export default class Modal {
           </button>
           <h3 class="modal__title"></h3>
         </div>
-
         <div class="modal__body">
-          A сюда нужно добавлять содержимое тела модального окна
         </div>
     </div>
     `);
