@@ -28,7 +28,7 @@ export default class ProductGrid {
   }
 
   updateFilter(filters) {
-    let productsGridInner = document.querySelector('.products-grid__inner');
+    let productsGridInner = this._container.querySelector('.products-grid__inner');
     productsGridInner.innerHTML = "";
 
     this.filters = Object.assign(this.filters, filters);

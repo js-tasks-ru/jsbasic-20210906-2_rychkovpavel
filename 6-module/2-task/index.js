@@ -96,7 +96,7 @@ export default class ProductCard {
       bubbles: true
     });
 
-    this._container.dispatchEvent(productAdd);
-  }                                                      // клиент несколько раз кликнуть и добавить блюдо
+    this._container.dispatchEvent(productAdd); // клиент несколько раз кликнуть и добавить блюдо
+  }                                                      
  
 }
